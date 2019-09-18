@@ -36,9 +36,9 @@ public class StudentController {
             @ApiImplicitParam(name = "sort", allowMultiple = true, dataType = "integer",
                     paramType = "query", value = "Sorting criteria in the format: property(,asc|desc)." +
                     "Default sort order is ascending" + "Multiple sort criteria are supported)")})
-    // http://localhost:2019/students/students/?page=0&size=5
+    // http://localhost:2019/students/students/?page=0&size=3
     @GetMapping(value = "/students", produces = {"application/json"})
-    public ResponseEntity<?> listAllStudents(@PageableDefault(page = 0, size = 5) Pageable pageable) {
+    public ResponseEntity<?> listAllStudents(@PageableDefault(page = 0, size = 3) Pageable pageable) {
         List<Student> myStudents = studentService.findAll(pageable);
         return new ResponseEntity<>(myStudents, HttpStatus.OK);
     }
@@ -72,7 +72,7 @@ public class StudentController {
             produces = {"application/json"})
     public ResponseEntity<?> getStudentByNameContaining(
             @ApiParam(value = "Student name", required = true, example = "name")
-            @PathVariable String name, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+            @PathVariable String name, @PageableDefault(page = 0, size = 3) Pageable pageable) {
         List<Student> myStudents = studentService.findStudentByNameLike(name, pageable);
         return new ResponseEntity<>(myStudents, HttpStatus.OK);
     }
